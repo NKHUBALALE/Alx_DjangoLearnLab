@@ -2,13 +2,15 @@ import django
 from django.conf import settings
 from relationship_app.models import Author, Book, Library, Librarian
 
-# Ensure Django settings are configured
+# Configure Django settings
+
 django.setup()
 
 def query_all_books_by_author(author_name):
     try:
         author = Author.objects.get(name=author_name)
-        books = author.book_set.all()  # Adjusted to correct relationship name
+        # Use filter to get books by a specific author
+        books = Book.objects.filter(author=author)
         return books
     except Author.DoesNotExist:
         return f"No author found with name {author_name}"
