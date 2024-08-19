@@ -1,22 +1,23 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.views.generic.detail import DetailView
+from django.contrib.auth import login, logout
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+
 from .models import Book, Library
 
-# Function-based view for listing books
+# View for listing all books
 def list_books(request):
     books = Book.objects.all()
     return render(request, 'relationship_app/list_books.html', {'books': books})
 
-# Class-based view for library details
+# Class-based view for displaying details of a library
 class LibraryDetailView(DetailView):
     model = Library
     template_name = 'relationship_app/library_detail.html'
     context_object_name = 'library'
 
-# Function-based view for user registration
+# View for user registration
 def register_view(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -27,7 +28,7 @@ def register_view(request):
         form = UserCreationForm()
     return render(request, 'relationship_app/register.html', {'form': form})
 
-# Function-based view for user login
+# View for user login
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
@@ -39,7 +40,7 @@ def login_view(request):
         form = AuthenticationForm()
     return render(request, 'relationship_app/login.html', {'form': form})
 
-# Function-based view for user logout
+# View for user logout
 def logout_view(request):
     logout(request)
     return render(request, 'relationship_app/logout.html')
