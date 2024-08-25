@@ -17,6 +17,9 @@ class Book(models.Model):
         return self.title
 
 
+from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.db import models
+
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, date_of_birth, password=None, **extra_fields):
         if not email:
@@ -32,3 +35,5 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', True)
 
         return self.create_user(email, date_of_birth, password, **extra_fields)
+
+
