@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import BaseUserManager
+from django.conf import settings  #
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, date_of_birth, password=None, **extra_fields):
@@ -28,6 +29,7 @@ class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=100)
     publication_year = models.IntegerField()
-    
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)  # Reference to CustomUser
+
     def __str__(self):
         return self.title
