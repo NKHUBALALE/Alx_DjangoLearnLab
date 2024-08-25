@@ -31,5 +31,14 @@ class Book(models.Model):
     publication_year = models.IntegerField()
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)  # Reference to CustomUser
 
+    
+    class Meta:
+        permissions = [
+            ("can_view", "Can view model"),
+            ("can_create", "Can create model"),
+            ("can_edit", "Can edit model"),
+            ("can_delete", "Can delete model"),
+        ]
+        
     def __str__(self):
         return self.title
