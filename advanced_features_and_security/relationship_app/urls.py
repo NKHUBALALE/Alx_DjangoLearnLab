@@ -3,7 +3,12 @@ from django.contrib.auth.views import LoginView, LogoutView
 from . import views
 from .views import list_books
 
+## urls in relationship_app
+
 urlpatterns = [
+    ##home
+    path('', views.home, name='home'),  
+    
     # Authentication URLs
     path('register/', views.register_view, name='register'),  # Explicitly use views.register_view
     path('login/', LoginView.as_view(template_name='relationship_app/login.html'), name='login'),
@@ -24,4 +29,7 @@ urlpatterns = [
     path('add_book/', views.add_book, name='add_book'),
     path('edit_book/<int:pk>/', views.edit_book, name='edit_book'),
     path('delete_book/<int:pk>/', views.delete_book, name='delete_book'),
+    
 ]
+
+
