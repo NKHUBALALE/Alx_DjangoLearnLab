@@ -157,3 +157,6 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 
 # Enable the browser's XSS filtering
 SECURE_BROWSER_XSS_FILTER = True
+
+# Define the header used by the reverse proxy to indicate that the request was over HTTPS
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
