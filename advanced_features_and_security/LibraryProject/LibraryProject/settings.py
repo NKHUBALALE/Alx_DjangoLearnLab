@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
-# settings.py
 
 # Redirect all HTTP requests to HTTPS
 SECURE_SSL_REDIRECT = True
@@ -20,6 +19,12 @@ SECURE_HSTS_SECONDS = 31536000  # 1 year
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
+
+# Ensure that session cookies are only sent over HTTPS
+SESSION_COOKIE_SECURE = True
+
+# Ensure that CSRF cookies are only sent over HTTPS
+CSRF_COOKIE_SECURE = True
 
 from pathlib import Path
 
