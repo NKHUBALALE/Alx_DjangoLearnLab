@@ -1,6 +1,7 @@
-from django.apps import AppConfig
+from rest_framework import serializers
+from .models import Book
 
-
-class ApiConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'api'
+class BookSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = '__all__'  # Include all fields from the Book model
