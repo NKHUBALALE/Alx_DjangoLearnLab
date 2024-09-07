@@ -21,7 +21,7 @@ class BookAPITestCase(APITestCase):
         self.books_url = reverse('book-list')
         self.book_detail_url = reverse('book-detail', kwargs={'pk': self.book.pk})
         self.book_update_url = reverse('book-update', kwargs={'pk': self.book.pk})
-        self.book_delete_url = reverse('book-delete', kwargs={'pk': self.book.pk'})
+        self.book_delete_url = reverse('book-delete', kwargs={'pk': self.book.pk})
     
     def test_list_books(self):
         response = self.client.get(self.books_url)
@@ -81,6 +81,7 @@ class BookAPITestCase(APITestCase):
         self.assertTrue(books[0]['publication_year'] <= books[1]['publication_year'])
     
     def test_permission_required_for_create_update_delete(self):
+        # No login attempt
         response = self.client.post(self.books_url, {'title': 'Unauthorized Book'}, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         response = self.client.put(self.book_update_url, {'title': 'Unauthorized Update'}, format='json')
