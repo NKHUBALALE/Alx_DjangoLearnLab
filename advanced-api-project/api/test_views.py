@@ -1,7 +1,6 @@
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
-from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
 from .models import Book
 from .serializers import BookSerializer
@@ -22,7 +21,7 @@ class BookAPITestCase(APITestCase):
         self.books_url = reverse('book-list')
         self.book_detail_url = reverse('book-detail', kwargs={'pk': self.book.pk})
         self.book_update_url = reverse('book-update', kwargs={'pk': self.book.pk})
-        self.book_delete_url = reverse('book-delete', kwargs={'pk': self.book.pk})
+        self.book_delete_url = reverse('book-delete', kwargs={'pk': self.book.pk'})
     
     def test_list_books(self):
         response = self.client.get(self.books_url)
@@ -32,7 +31,8 @@ class BookAPITestCase(APITestCase):
         self.assertEqual(response.data, serializer.data)
     
     def test_create_book(self):
-        self.client.force_authenticate(user=self.user)
+        # Login the user
+        self.client.login(username='testuser', password='testpass')
         data = {
             'title': 'New Book',
             'author': 'New Author',
@@ -44,7 +44,8 @@ class BookAPITestCase(APITestCase):
         self.assertEqual(Book.objects.latest('id').title, 'New Book')
     
     def test_update_book(self):
-        self.client.force_authenticate(user=self.user)
+        # Login the user
+        self.client.login(username='testuser', password='testpass')
         data = {
             'title': 'Updated Book',
             'author': 'Updated Author',
@@ -56,7 +57,8 @@ class BookAPITestCase(APITestCase):
         self.assertEqual(self.book.title, 'Updated Book')
     
     def test_delete_book(self):
-        self.client.force_authenticate(user=self.user)
+        # Login the user
+        self.client.login(username='testuser', password='testpass')
         response = self.client.delete(self.book_delete_url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Book.objects.count(), 0)
