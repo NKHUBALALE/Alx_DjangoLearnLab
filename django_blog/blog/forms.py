@@ -2,7 +2,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Post, Comment  # Import your Post and Comment model 
+from .models import Post, Comment  # Import your Post and Comment model
 from taggit.forms import TagField, TagWidget  # Import TagField and TagWidget
 
 class CustomUserForm(UserCreationForm):
@@ -29,6 +29,11 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content', 'tags']  # Include fields for title, content, and tags
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter the title'}),
+            'content': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Write your post content here'}),
+            'tags': TagWidget(attrs={'class': 'form-control', 'placeholder': 'Add tags'})
+        }
 
 class CommentForm(forms.ModelForm):
     """
@@ -37,3 +42,6 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['content']  # Only allow users to enter content for comments
+        widgets = {
+            'content': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Add a comment'}),
+        }
