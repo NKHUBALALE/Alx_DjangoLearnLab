@@ -20,9 +20,9 @@ urlpatterns = [
     path('logout/', logout_page, name='logout'),
     path('profile/', profile_page, name='profile'),
     
-    path('posts/', PostListView.as_view(), name='post-list'),  # List all posts
-    path('posts/new/', PostCreateView.as_view(), name='post-create'),  # Create a new post
-    path('posts/<int:pk>/', PostDetailView.as_view(), name='post-detail'),  # View a single post
-    path('posts/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),  # Update an existing post
-    path('posts/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),  # Delete a post
+    # Change these to match the expected format
+    path('post/new/', PostCreateView.as_view(), name='post-create'),  # Create a new post
+    path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),  # View a single post
+    path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),  # Update an existing post
+    path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),  # Delete a post
 ]
