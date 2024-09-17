@@ -2,7 +2,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Post  # Import your Post model
+from .models import Post, Comment  # Import your Post and Comment model 
 
 class CustomUserForm(UserCreationForm):
     """
@@ -26,3 +26,12 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content']  # Include fields for title and content
+
+
+class CommentForm(forms.ModelForm):
+    """
+    A form that creates a comment for a blog post.
+    """
+    class Meta:
+        model = Comment
+        fields = ['content']  # Only allow users to enter content for comments

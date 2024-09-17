@@ -11,6 +11,14 @@ from .views import (
     PostCreateView,
     PostUpdateView,
     PostDeleteView,
+    add_comment,
+    edit_comment,
+    delete_comment,
+    
+
+    
+
+    
 )   
 
 urlpatterns = [
@@ -20,9 +28,12 @@ urlpatterns = [
     path('logout/', logout_page, name='logout'),
     path('profile/', profile_page, name='profile'),
     
-    # Change these to match the expected format
     path('post/new/', PostCreateView.as_view(), name='post-create'),  # Create a new post
     path('post/<int:pk>/', PostDetailView.as_view(), name='post-detail'),  # View a single post
     path('post/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'),  # Update an existing post
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),  # Delete a post
+    # Comment URLs
+    path('post/<int:post_id>/comments/new/', add_comment, name='add-comment'),  # Add a new comment
+    path('comment/<int:comment_id>/edit/', edit_comment, name='edit-comment'),  # Edit a comment
+    path('comment/<int:comment_id>/delete/', delete_comment, name='delete-comment'),  # Delete a comment
 ]
