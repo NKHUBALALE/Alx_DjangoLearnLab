@@ -2,6 +2,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import Post  # Import your Post model
 
 class CustomUserForm(UserCreationForm):
     """
@@ -17,3 +18,11 @@ class CustomUserForm(UserCreationForm):
         """
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+
+class PostForm(forms.ModelForm):
+    """
+    A form that creates or updates a blog post.
+    """
+    class Meta:
+        model = Post
+        fields = ['title', 'content']  # Include fields for title and content
