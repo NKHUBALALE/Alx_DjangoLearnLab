@@ -14,7 +14,7 @@ from .views import (
     add_comment,
     edit_comment,
     delete_comment,
-)   
+)
 
 urlpatterns = [
     path('', home_view, name='home'),  # Home view for the root URL
@@ -29,7 +29,7 @@ urlpatterns = [
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),  # Delete a post
 
     # Comment URLs
-    path('post/<int:pk>/comments/new/', add_comment, name='add-comment'),  # Add a new comment (updated)
-    path('comment/<int:pk>/edit/', edit_comment, name='edit-comment'),  # Edit a comment (updated)
-    path('comment/<int:pk>/delete/', delete_comment, name='delete-comment'),  # Delete a comment (updated)
+    path('post/<int:pk>/comments/new/', add_comment, name='add-comment'),  # Add a new comment
+    path('comment/<int:pk>/update/', edit_comment, name='comment-update'),  # Update a comment (aligned with format)
+    path('comment/<int:pk>/delete/', delete_comment, name='delete-comment'),  # Delete a comment
 ]
