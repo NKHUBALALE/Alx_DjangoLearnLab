@@ -2,6 +2,26 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+class Tag(models.Model):
+    """
+    A tag model.
+
+    Attributes:
+        name (CharField): The name of the tag.
+    """
+
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        """
+        Return a string representation of the tag.
+
+        The string is formatted as: "<name>"
+
+        :return: A string representation of the tag
+        """
+        return self.name
+
 class Post(models.Model):
     """
     A blog post model.
@@ -16,8 +36,16 @@ class Post(models.Model):
     content = models.TextField()
     published_date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    tags = models.ManyToManyField(Tag, related_name='posts', blank=True)
 
     def __str__(self):
+        """
+        Return a string representation of the post.
+
+        The string is formatted as: "<title>"
+
+        :return: A string representation of the post
+        """
         return self.title
 
 
@@ -48,3 +76,6 @@ class Comment(models.Model):
         :return: A string representation of the comment
         """
         return f'Comment by {self.author.username} on {self.post.title}'
+
+
+

@@ -3,6 +3,15 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Post, Comment  # Import your Post and Comment model 
+from django.shortcuts import render
+
+
+from django.db.models import Q
+
+def search_posts(request):
+    query = request.GET.get('q')
+    results = Post.objects.filter(Q(title__icontains=query) | Q(content__icontains=query) | Q(tags__name__icontains=query)).distinct()
+    return render(request, 'blog/search_results.html', {'results': results, 'query': query})
 
 class CustomUserForm(UserCreationForm):
     """

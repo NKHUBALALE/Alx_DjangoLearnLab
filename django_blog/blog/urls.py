@@ -14,6 +14,7 @@ from .views import (
     add_comment,
     edit_comment,
     delete_comment,
+    search_posts,
 )
 
 urlpatterns = [
@@ -32,4 +33,6 @@ urlpatterns = [
     path('post/<int:pk>/comments/new/', add_comment, name='add-comment'),  # Add a new comment
     path('comment/<int:pk>/update/', edit_comment, name='comment-update'),  # Update a comment (aligned with format)
     path('comment/<int:pk>/delete/', delete_comment, name='delete-comment'),  # Delete a comment
+    # Tagging and Search URLs
+    path('search/', search_posts, name='search-posts'),  # Search functionality
 ]

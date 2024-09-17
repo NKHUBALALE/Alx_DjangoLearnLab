@@ -7,6 +7,30 @@ from django.urls import reverse_lazy
 from .models import Post, Comment  # Ensure Comment model is imported
 from .forms import CustomUserForm, PostForm, CommentForm  # Ensure CommentForm is imported
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+# blog/views.py
+from django.shortcuts import render
+from django.db.models import Q
+from .models import Post
+
+def search_posts(request):
+    """
+    View to search posts based on title, content, and tags.
+
+    If the query is not empty, it will filter posts based on the query.
+    The results will be rendered in the 'blog/search_results.html' template.
+
+    :param request: The request object
+    :return: A rendered template with the query results
+    """
+    
+    
+    query = request.GET.get('q')  # Get the search query from the request
+    results = Post.objects.filter(
+        Q(title__icontains=query) | 
+        Q(content__icontains=query) | 
+        Q(tags__name__icontains=query)
+    ).distinct()  # Filter posts based on the query
+    return render(request, 'blog/search_results.html', {'results': results, 'query': query})
 
 # Home view
 def home_view(request):
