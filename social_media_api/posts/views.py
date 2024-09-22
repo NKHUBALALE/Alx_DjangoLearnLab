@@ -24,9 +24,8 @@ class CommentViewSet(viewsets.ModelViewSet):
 # Feed View to list posts from followed users
 class FeedView(generics.ListAPIView):
     serializer_class = PostSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        user = self.request.user
-        followed_users = user.following.all()
-        return Post.objects.filter(author__in=followed_users).order_by('-created_at')
+        user = self.request.user  # Get the currently logged-in user
+        following_users = user.following.all()  # Get all users that the current user follows
+        return Post.objects.filter(author__in=following_users).order_by('-created_at')  # Filter posts and order by creation date
