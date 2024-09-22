@@ -6,7 +6,7 @@ from .serializers import PostSerializer, CommentSerializer
 from accounts.models import CustomUser
 from notifications.models import Notification  # Assuming you have a Notification model
 from django.contrib.contenttypes.models import ContentType
-from django.shortcuts import get_object_or_404  # Import get_object_or_404
+from rest_framework.generics import get_object_or_404
 
 # ViewSet for Posts
 class PostViewSet(viewsets.ModelViewSet):
