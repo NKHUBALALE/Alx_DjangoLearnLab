@@ -186,6 +186,8 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Comment
     
     def test_func(self):
+        # Check if the logged-in user is the author of the comment
+        # This is a requirement for the UserPassesTestMixin
         comment = self.get_object()
         return self.request.user == comment.author
 
