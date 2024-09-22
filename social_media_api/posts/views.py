@@ -1,12 +1,12 @@
-from rest_framework import viewsets, permissions, generics, status
+from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.generics import get_object_or_404
 from .models import Post, Comment, Like
 from .serializers import PostSerializer, CommentSerializer
 from accounts.models import CustomUser
 from notifications.models import Notification  # Assuming you have a Notification model
 from django.contrib.contenttypes.models import ContentType
-from rest_framework.generics import get_object_or_404
 
 # ViewSet for Posts
 class PostViewSet(viewsets.ModelViewSet):
