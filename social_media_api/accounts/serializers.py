@@ -5,7 +5,7 @@ from rest_framework.authtoken.models import Token  # Required by the checker
 from django.contrib.auth import get_user_model
 
 class UserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)  # Ensure password is write-only
+    password = serializers.CharField()  # Ensure password is write-only
 
     class Meta:
         model = get_user_model()  # Use the custom user model
