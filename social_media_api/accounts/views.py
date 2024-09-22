@@ -19,16 +19,16 @@ class LoginView(ObtainAuthToken):
         return Response({'token': token.key})
 
 # Follow User View
-class FollowUserView(APIView):
+class FollowUserView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, user_id):
         user_to_follow = CustomUser.objects.get(id=user_id)
         request.user.following.add(user_to_follow)
         return Response({"message": f"You are now following {user_to_follow.username}"})
-
+    
 # Unfollow User View
-class UnfollowUserView(APIView):
+class UnfollowUserView(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, user_id):
