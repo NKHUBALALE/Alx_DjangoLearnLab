@@ -1,7 +1,6 @@
-from rest_framework import viewsets, permissions, status
+from rest_framework import viewsets, permissions, status, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.generics import get_object_or_404
 from .models import Post, Comment, Like
 from .serializers import PostSerializer, CommentSerializer
 from accounts.models import CustomUser
@@ -41,7 +40,7 @@ class LikePostView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, pk):
-        post = get_object_or_404(Post, pk=pk)  # Use get_object_or_404 here
+        post = generics.get_object_or_404(Post, pk=pk)  # Use generics.get_object_or_404 here
         like, created = Like.objects.get_or_create(user=request.user, post=post)
 
         if created:  # If a new like was created
@@ -62,7 +61,7 @@ class UnlikePostView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, pk):
-        post = get_object_or_404(Post, pk=pk)  # Use get_object_or_404 here
+        post = generics.get_object_or_404(Post, pk=pk)  # Use generics.get_object_or_404 here
         try:
             like = Like.objects.get(user=request.user, post=post)
             like.delete()
