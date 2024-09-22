@@ -135,3 +135,14 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
 }
+
+
+# Security settings
+SECURE_BROWSER_XSS_FILTER = True  # Enables the browser's XSS filter
+X_FRAME_OPTIONS = 'DENY'  # Prevents the site from being embedded in iframes
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents browsers from MIME-sniffing
+SECURE_SSL_REDIRECT = True  # Redirects all HTTP requests to HTTPS
+
+# Additional security settings (optional but recommended)
+SESSION_COOKIE_SECURE = True  # Ensures cookies are only sent over HTTPS
+CSRF_COOKIE_SECURE = True  # Ensures CSRF cookies are only sent over HTTPS
