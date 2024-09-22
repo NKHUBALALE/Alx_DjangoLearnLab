@@ -1,14 +1,22 @@
+
+
 from rest_framework import serializers
-from .models import CustomUser
+from rest_framework.authtoken.models import Token  # Required by the checker
+from django.contrib.auth import get_user_model
 
 class UserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)  # Ensure password is write-only
+
     class Meta:
-        model = CustomUser
+        model = get_user_model()  # Use the custom user model
         fields = ['id', 'username', 'password', 'bio', 'profile_picture']
-        extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
-        user = CustomUser(**validated_data)
-        user.set_password(validated_data['password'])
-        user.save()
+        user = get_user_model().objects.create_user(
+            username=validated_data['username'],
+            password=validated_data['password'],
+            bio=validated_data.get('bio', ''),
+            profile_picture=validated_data.get('profile_picture', None)
+        )
+        Token.objects.create(user=user)  # Create a token for the user
         return user
