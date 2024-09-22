@@ -6,6 +6,7 @@ from .serializers import PostSerializer, CommentSerializer
 from accounts.models import CustomUser
 from notifications.models import Notification  # Assuming you have a Notification model
 from django.contrib.contenttypes.models import ContentType
+from django.shortcuts import get_object_or_404  # Import get_object_or_404
 
 # ViewSet for Posts
 class PostViewSet(viewsets.ModelViewSet):
@@ -40,7 +41,7 @@ class LikePostView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, pk):
-        post = Post.objects.get(pk=pk)
+        post = get_object_or_404(Post, pk=pk)  # Use get_object_or_404 here
         like, created = Like.objects.get_or_create(user=request.user, post=post)
 
         if created:  # If a new like was created
@@ -61,7 +62,7 @@ class UnlikePostView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, pk):
-        post = Post.objects.get(pk=pk)
+        post = get_object_or_404(Post, pk=pk)  # Use get_object_or_404 here
         try:
             like = Like.objects.get(user=request.user, post=post)
             like.delete()
