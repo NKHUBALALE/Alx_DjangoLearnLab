@@ -117,10 +117,11 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+## Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'  # URL to access static files
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Directory where collectstatic will collect static files
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
